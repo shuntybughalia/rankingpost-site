@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import Header from "./Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,25 +28,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <div className="min-h-screen bg-gray-50 text-gray-800">
-      {/* Navbar */}
-    
-          <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-indigo-600">NextBlog</h1>
-          <nav className="hidden md:flex space-x-8 text-sm font-medium">
-            <Link href="/" className="hover:text-indigo-600 transition">Home</Link>
-           <Link href="/article" className="hover:text-indigo-600 transition">Articles</Link>
-            <Link href="/about-us" className="hover:text-indigo-600 transition">About</Link>
-            <Link href="/contact" className="hover:text-indigo-600 transition">Contact</Link>
-          </nav>
-          <button className="md:hidden text-indigo-600">
-            ☰
-          </button>
-        </div>
-      </header>
-        {children}
-
+        <div className="min-h-screen bg-gray-50 text-gray-800">
+          <Header />
+          {children}
         </div>
       </body>
     </html>
