@@ -70,7 +70,7 @@ export default function ArticlePage() {
             <textarea
               placeholder="Write your comment..."
               className="w-full border rounded-xl p-4 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              rows="4"
+              rows={4}
             ></textarea>
             <button className="bg-indigo-600 text-white px-6 py-2 rounded-full font-medium hover:bg-indigo-700 transition">
               Post Comment
