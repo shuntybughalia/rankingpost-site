@@ -40,9 +40,9 @@ export default function Home() {
 
         <div className="absolute inset-0 flex items-center">
           <div className="w-full max-w-4xl mx-auto px-6 text-center">
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg">
-              Discover Stories & Ideas
-            </h2>
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg">
+              Welcome to Ranking Post
+            </h1>
             <p className="text-lg md:text-xl mb-8 opacity-95 max-w-2xl mx-auto">
               A modern blog platform built with Next.js and Tailwind CSS.
               Read, write, and explore amazing content.
