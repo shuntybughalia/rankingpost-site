@@ -1,10 +1,9 @@
 import { MongoClient, Db } from "mongodb";
 
-const uri = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB || "rankingpost";
+const uri = process.env.MONGODB_URI as string;
 
 if (!uri) {
-  throw new Error("Please define the MONGODB_URI environment variable in .env.local");
+  throw new Error("Please define the MONGODB_URI environment variable");
 }
 
 let client: MongoClient;
@@ -24,6 +23,5 @@ clientPromise = global._mongoClientPromise;
 
 export async function getDb(): Promise<Db> {
   const client = await clientPromise;
-  return client.db(dbName);
+  return client.db(process.env.MONGODB_DB_NAME);
 }
-
