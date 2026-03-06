@@ -1,138 +1,216 @@
-"use client";
+"use client"; // Required for useState and onClick events
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useState } from 'react';
+import Link from 'next/link';
 
-// Types define karna zaroori hai
-type Blog = {
-  _id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  thumbnail?: string;
-  createdAt?: string | Date;
-};
+// Import relevant icons for a standard icon library (e.g., react-icons/fa and react-icons/fi)
+import { FaFacebookF, FaTelegramPlane, FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FiSearch, FiBell, FiMoon } from 'react-icons/fi';
 
-export default function Home() {
-  const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
+const Header = () => {
+  // Simple state to track the active page, highlighting 'Home' by default as shown in the image
+  const [activePage, setActivePage] = useState<'Home' | 'Login Page'>('Home');
 
-  useEffect(() => {
-    const fetchFeatured = async () => {
-      try {
-        const response = await fetch("/api/blogs");
-        if (!response.ok) return;
-        const data = (await response.json()) as Blog[];
-        // Latest 5 blogs slider ke liye
-        setFeaturedBlogs(data.slice(0, 5));
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    };
+  // Common styling for navigation links to avoid repetition
+  const getNavLinkClass = (page: 'Home' | 'Login Page') => {
+    const baseClass = "text-base font-semibold px-2 py-1 transition-colors";
+    const activeClass = "text-pink-600 border-b-2 border-pink-600";
+    const inactiveClass = "text-gray-900 hover:text-pink-600";
+    return page === activePage ? `${baseClass} ${activeClass}` : `${baseClass} ${inactiveClass}`;
+  };
 
-    fetchFeatured();
-  }, []);
+  // Common styling for social media and theme icons to avoid repetition
+  const iconClass = "text-xl text-gray-700 hover:text-blue-600 transition-colors cursor-pointer p-1";
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* 1. Dynamic Hero Slider Section */}
-      <section className="relative bg-black overflow-hidden">
-        <HeroSlider blogs={featuredBlogs} />
-      </section>
-
-      {/* 2. Latest Articles Grid */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="flex items-center justify-between mb-12 border-b pb-4">
-          <div>
-            <h3 className="text-3xl font-black text-gray-900">Latest Articles</h3>
-            <p className="text-gray-500 text-sm mt-1">Explore career paths with Apni Raah</p>
-          </div>
-          <Link href="/blog" className="text-pink-600 font-bold hover:text-pink-700 transition-colors">
-            View All Stories →
+    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div className="max-w-screen-2xl mx-auto flex items-center h-20 px-6 sm:px-10">
+        
+        {/* Left Section: Brand Logo/Name */}
+        <div className="flex-shrink-0 mr-12">
+          <Link href="/" className="text-3xl font-extrabold text-gray-950 tracking-tight">
+            Eromeofficial
           </Link>
         </div>
-        
-        {featuredBlogs.length === 0 ? (
-          <div className="h-64 flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-3xl bg-gray-50">
-            <p className="text-gray-400 font-medium">No blog posts found yet.</p>
-            <Link href="/admin" className="text-pink-600 text-sm underline mt-2">Open Admin to write</Link>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-3 gap-10">
-            {featuredBlogs.slice(0, 3).map((post) => (
-              <article
-                key={post._id}
-                className="group bg-white rounded-3xl shadow-sm hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 flex flex-col h-full"
-              >
-                <div className="h-56 overflow-hidden relative">
-                  <img 
-                    src={post.thumbnail || "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=600"} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                    alt={post.title} 
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-pink-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Career</span>
-                  </div>
-                </div>
-                <div className="p-8 flex flex-col flex-grow">
-                  <h4 className="text-xl font-bold mb-4 line-clamp-2 text-gray-900 group-hover:text-pink-600 transition-colors">
-                    {post.title}
-                  </h4>
-                  <p className="text-gray-500 mb-6 line-clamp-3 text-sm leading-relaxed">
-                    {post.excerpt}
-                  </p>
-                  <div className="mt-auto pt-4 border-t border-gray-50">
-                    <Link
-                      href={`/blog/${post._id}`}
-                      className="text-gray-900 font-black text-xs tracking-widest hover:text-pink-600 transition-colors uppercase"
-                    >
-                      Read Article +
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
-    </main>
-  );
-}
 
-// HeroSlider Component
-function HeroSlider({ blogs }: { blogs: Blog[] }) {
-  const [current, setCurrent] = useState(0);
+        {/* Center/Right-aligned Section: Navigation, Social Icons, Search, Subscribe */}
+        <div className="flex-1 flex items-center justify-end gap-10">
+          
+          {/* Main Navigation Links */}
+          <nav className="flex items-center gap-6">
+            <button 
+              onClick={() => setActivePage('Home')} 
+              className={getNavLinkClass('Home')}
+            >
+              Home
+            </button>
+            <button 
+              onClick={() => setActivePage('Login Page')} 
+              className={getNavLinkClass('Login Page')}
+            >
+              Login Page
+            </button>
+          </nav>
 
-  useEffect(() => {
-    if (blogs.length <= 1) return;
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % blogs.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, [blogs.length]);
-
-  if (blogs.length === 0) {
-    return (
-      <div className="w-full h-[60vh] md:h-[75vh] bg-gray-900 flex items-center justify-center">
-        <div className="w-20 h-20 border-4 border-pink-600 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative w-full h-[60vh] md:h-[85vh] overflow-hidden">
-      {/* Slides */}
-      <div
-        className="flex h-full transition-transform duration-1000 ease-out"
-        style={{ transform: `translateX(-${current * 100}%)` }}
-      >
-        {blogs.map((post) => (
-          <div key={post._id} className="min-w-full h-full relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
-            <img
-              src={post.thumbnail || "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=1200"}
-              alt={post.title}
-              className="w-full h-full object-cover"
+          {/* Social Media Icons and Theme Toggle */}
+          <div className="flex items-center gap-5 border-l border-r border-gray-100 px-6">
+            <FaFacebookF className={iconClass} title="Facebook" />
+            <div className={`${iconClass} font-mono`} title="X (Twitter)">X</div> {/* Use a specific "X" icon or text here */}
+            <FaTelegramPlane className={iconClass} title="Telegram" />
+            <FaInstagram className={iconClass} title="Instagram" />
+            <FaYoutube className={iconClass} title="YouTube" />
+            
+            {/* Dark Mode / Night Mode Toggle Icon */}
+            <FiMoon 
+              className="text-xl text-gray-700 hover:text-gray-950 transition-colors cursor-pointer p-1" 
+              title="Dark Mode" 
+              onClick={() => alert("Dark Mode Toggle Clicked! (Logic to be implemented)")} // Simple feedback for interaction
             />
-            <div className="absolute inset-0 z-20 flex items-center px-6 md:px-20">
-              <div className="max-w-3xl text-left text-white">
-                <span className="bg-pink-600 px-4 py-1 rounded-full text-[10px] font-black tracking
+          </div>
+
+          {/* Search and Subscribe CTAs */}
+          <div className="flex items-center gap-4">
+            {/* Search Icon button */}
+            <button 
+              className="p-3 text-white bg-pink-600 rounded-full hover:bg-pink-700 transition" 
+              title="Search"
+            >
+              <FiSearch className="text-xl" />
+            </button>
+            
+            {/* Main Subscribe Button */}
+            <button className="flex items-center gap-2.5 px-6 py-3.5 bg-pink-600 text-white text-base font-semibold rounded-xl hover:bg-pink-700 transition">
+              <FiBell className="text-xl" />
+              Subscribe
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </header>
+  );
+};
+
+export default Header;
+
+// 'use client';
+
+// import Link from "next/link";
+// import { usePathname } from "next/navigation";
+// import { useEffect, useState } from "react";
+
+// const navItems = [
+//   { label: "Home", href: "/" },
+//   { label: "Blog", href: "/blog" },
+//   { label: "Contact", href: "/contact" },
+//   { label: "Write for us", href: "/write-for-us" },
+//   { label: "Admin", href: "/admin" },
+// ];
+
+// export default function Header() {
+//   const pathname = usePathname();
+//   const [scrolled, setScrolled] = useState(false);
+//   const [mobileOpen, setMobileOpen] = useState(false);
+
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       setScrolled(window.scrollY > 10);
+//     };
+
+//     handleScroll();
+//     window.addEventListener("scroll", handleScroll);
+//     return () => window.removeEventListener("scroll", handleScroll);
+//   }, []);
+
+//   return (
+//     <header
+//       className={`sticky top-0 z-50 backdrop-blur bg-white/70 transition-all duration-300 ${
+//         scrolled ? "shadow-lg" : "shadow-sm"
+//       }`}
+//     >
+//       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+//         <Link href="/" className="text-2xl font-bold tracking-tight">
+//           <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+//             RankingPost
+//           </span>
+//         </Link>
+
+//         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+//           {navItems.map((item) => {
+//             const isActive =
+//               item.href === "/"
+//                 ? pathname === "/"
+//                 : pathname.startsWith(item.href);
+
+//             return (
+//               <Link
+//                 key={item.href}
+//                 href={item.href}
+//                 className={`group relative transition-colors duration-200 ${
+//                   isActive ? "text-indigo-600" : "text-gray-600"
+//                 } hover:text-indigo-600`}
+//               >
+//                 <span className="inline-block">{item.label}</span>
+//                 <span
+//                   className={`pointer-events-none absolute left-0 -bottom-1 h-0.5 bg-indigo-500 transition-all duration-200 ${
+//                     isActive ? "w-full" : "w-0 group-hover:w-full"
+//                   }`}
+//                 />
+//               </Link>
+//             );
+//           })}
+//         </nav>
+
+//         <button
+//           type="button"
+//           className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-indigo-600 hover:bg-indigo-50 transition-all duration-200"
+//           onClick={() => setMobileOpen((open) => !open)}
+//           aria-label="Toggle navigation"
+//         >
+//           <span
+//             className={`block h-0.5 w-5 bg-current transform transition duration-200 ${
+//               mobileOpen ? "translate-y-1.5 rotate-45" : "-translate-y-0.5"
+//             }`}
+//           />
+//           <span
+//             className={`block h-0.5 w-4 bg-current my-0.5 transition-opacity duration-200 ${
+//               mobileOpen ? "opacity-0" : "opacity-100"
+//             }`}
+//           />
+//           <span
+//             className={`block h-0.5 w-5 bg-current transform transition duration-200 ${
+//               mobileOpen ? "-translate-y-1.5 -rotate-45" : "translate-y-0.5"
+//             }`}
+//           />
+//         </button>
+//       </div>
+
+//       {mobileOpen && (
+//         <div className="md:hidden border-t border-gray-100 bg-white/90 backdrop-blur">
+//           <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col space-y-3 text-sm font-medium">
+//             {navItems.map((item) => {
+//               const isActive =
+//                 item.href === "/"
+//                   ? pathname === "/"
+//                   : pathname.startsWith(item.href);
+
+//               return (
+//                 <Link
+//                   key={item.href}
+//                   href={item.href}
+//                   onClick={() => setMobileOpen(false)}
+//                   className={`transition-colors duration-200 ${
+//                     isActive ? "text-indigo-600" : "text-gray-700"
+//                   } hover:text-indigo-600`}
+//                 >
+//                   {item.label}
+//                 </Link>
+//               );
+//             })}
+//           </nav>
+//         </div>
+//       )}
+//     </header>
+//   );
+// }
+
