@@ -12,8 +12,8 @@ const Header = () => {
 
   const getNavLinkClass = (page: 'Home' | 'Login Page') => {
     const baseClass = "text-base font-semibold px-2 py-1 transition-colors";
-    const activeClass = "text-pink-600 border-b-2 border-pink-600";
-    const inactiveClass = "text-gray-900 hover:text-pink-600";
+    const activeClass = "text-green-600 border-b-2 border-pink-600";
+    const inactiveClass = "text-gray-900 hover:text-green-600";
     return page === activePage ? `${baseClass} ${activeClass}` : `${baseClass} ${inactiveClass}`;
   };
 
