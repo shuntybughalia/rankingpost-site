@@ -60,7 +60,7 @@ const Header = () => {
               <FiSearch className="text-xl" />
             </button>
             
-            <button className="flex items-center gap-2.5 px-6 py-3.5 bg-pink-600 text-white text-base font-semibold rounded-xl hover:bg-pink-700 transition">
+            <button className="flex items-center gap-2.5 px-6 py-3.5 bg-green-600 text-white text-base font-semibold rounded-xl hover:bg-green-700 transition">
               <FiBell className="text-xl" />
               Subscribe
             </button>
