@@ -26,7 +26,7 @@ const Header = () => {
         {/* Logo - Isko aap Apni Raah ya PragyaX se badal sakte hain */}
         <div className="flex-shrink-0 mr-12">
           <Link href="/" className="text-3xl font-extrabold text-gray-950 tracking-tight">
-            Eromeofficial
+            Ranking Post
           </Link>
         </div>
 
