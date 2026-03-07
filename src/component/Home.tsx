@@ -1,216 +1,95 @@
-"use client"; // Required for useState and onClick events
+// "use client"; // Required for useState and onClick events
 
-import React, { useState } from 'react';
-import Link from 'next/link';
+// import React, { useState } from 'react';
+// import Link from 'next/link';
 
-// Import relevant icons for a standard icon library (e.g., react-icons/fa and react-icons/fi)
-import { FaFacebookF, FaTelegramPlane, FaInstagram, FaYoutube } from 'react-icons/fa';
-import { FiSearch, FiBell, FiMoon } from 'react-icons/fi';
+// // Import relevant icons for a standard icon library (e.g., react-icons/fa and react-icons/fi)
+// import { FaFacebookF, FaTelegramPlane, FaInstagram, FaYoutube } from 'react-icons/fa';
+// import { FiSearch, FiBell, FiMoon } from 'react-icons/fi';
 
-const Header = () => {
-  // Simple state to track the active page, highlighting 'Home' by default as shown in the image
-  const [activePage, setActivePage] = useState<'Home' | 'Login Page'>('Home');
+// const Header = () => {
+//   // Simple state to track the active page, highlighting 'Home' by default as shown in the image
+//   const [activePage, setActivePage] = useState<'Home' | 'Login Page'>('Home');
 
-  // Common styling for navigation links to avoid repetition
-  const getNavLinkClass = (page: 'Home' | 'Login Page') => {
-    const baseClass = "text-base font-semibold px-2 py-1 transition-colors";
-    const activeClass = "text-pink-600 border-b-2 border-pink-600";
-    const inactiveClass = "text-gray-900 hover:text-pink-600";
-    return page === activePage ? `${baseClass} ${activeClass}` : `${baseClass} ${inactiveClass}`;
-  };
+//   // Common styling for navigation links to avoid repetition
+//   const getNavLinkClass = (page: 'Home' | 'Login Page') => {
+//     const baseClass = "text-base font-semibold px-2 py-1 transition-colors";
+//     const activeClass = "text-pink-600 border-b-2 border-pink-600";
+//     const inactiveClass = "text-gray-900 hover:text-pink-600";
+//     return page === activePage ? `${baseClass} ${activeClass}` : `${baseClass} ${inactiveClass}`;
+//   };
 
-  // Common styling for social media and theme icons to avoid repetition
-  const iconClass = "text-xl text-gray-700 hover:text-blue-600 transition-colors cursor-pointer p-1";
-
-  return (
-    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-screen-2xl mx-auto flex items-center h-20 px-6 sm:px-10">
-        
-        {/* Left Section: Brand Logo/Name */}
-        <div className="flex-shrink-0 mr-12">
-          <Link href="/" className="text-3xl font-extrabold text-gray-950 tracking-tight">
-            Eromeofficial
-          </Link>
-        </div>
-
-        {/* Center/Right-aligned Section: Navigation, Social Icons, Search, Subscribe */}
-        <div className="flex-1 flex items-center justify-end gap-10">
-          
-          {/* Main Navigation Links */}
-          <nav className="flex items-center gap-6">
-            <button 
-              onClick={() => setActivePage('Home')} 
-              className={getNavLinkClass('Home')}
-            >
-              Home
-            </button>
-            <button 
-              onClick={() => setActivePage('Login Page')} 
-              className={getNavLinkClass('Login Page')}
-            >
-              Login Page
-            </button>
-          </nav>
-
-          {/* Social Media Icons and Theme Toggle */}
-          <div className="flex items-center gap-5 border-l border-r border-gray-100 px-6">
-            <FaFacebookF className={iconClass} title="Facebook" />
-            <div className={`${iconClass} font-mono`} title="X (Twitter)">X</div> {/* Use a specific "X" icon or text here */}
-            <FaTelegramPlane className={iconClass} title="Telegram" />
-            <FaInstagram className={iconClass} title="Instagram" />
-            <FaYoutube className={iconClass} title="YouTube" />
-            
-            {/* Dark Mode / Night Mode Toggle Icon */}
-            <FiMoon 
-              className="text-xl text-gray-700 hover:text-gray-950 transition-colors cursor-pointer p-1" 
-              title="Dark Mode" 
-              onClick={() => alert("Dark Mode Toggle Clicked! (Logic to be implemented)")} // Simple feedback for interaction
-            />
-          </div>
-
-          {/* Search and Subscribe CTAs */}
-          <div className="flex items-center gap-4">
-            {/* Search Icon button */}
-            <button 
-              className="p-3 text-white bg-pink-600 rounded-full hover:bg-pink-700 transition" 
-              title="Search"
-            >
-              <FiSearch className="text-xl" />
-            </button>
-            
-            {/* Main Subscribe Button */}
-            <button className="flex items-center gap-2.5 px-6 py-3.5 bg-pink-600 text-white text-base font-semibold rounded-xl hover:bg-pink-700 transition">
-              <FiBell className="text-xl" />
-              Subscribe
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </header>
-  );
-};
-
-export default Header;
-
-// 'use client';
-
-// import Link from "next/link";
-// import { usePathname } from "next/navigation";
-// import { useEffect, useState } from "react";
-
-// const navItems = [
-//   { label: "Home", href: "/" },
-//   { label: "Blog", href: "/blog" },
-//   { label: "Contact", href: "/contact" },
-//   { label: "Write for us", href: "/write-for-us" },
-//   { label: "Admin", href: "/admin" },
-// ];
-
-// export default function Header() {
-//   const pathname = usePathname();
-//   const [scrolled, setScrolled] = useState(false);
-//   const [mobileOpen, setMobileOpen] = useState(false);
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       setScrolled(window.scrollY > 10);
-//     };
-
-//     handleScroll();
-//     window.addEventListener("scroll", handleScroll);
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
+//   // Common styling for social media and theme icons to avoid repetition
+//   const iconClass = "text-xl text-gray-700 hover:text-blue-600 transition-colors cursor-pointer p-1";
 
 //   return (
-//     <header
-//       className={`sticky top-0 z-50 backdrop-blur bg-white/70 transition-all duration-300 ${
-//         scrolled ? "shadow-lg" : "shadow-sm"
-//       }`}
-//     >
-//       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-//         <Link href="/" className="text-2xl font-bold tracking-tight">
-//           <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-//             RankingPost
-//           </span>
-//         </Link>
-
-//         <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-//           {navItems.map((item) => {
-//             const isActive =
-//               item.href === "/"
-//                 ? pathname === "/"
-//                 : pathname.startsWith(item.href);
-
-//             return (
-//               <Link
-//                 key={item.href}
-//                 href={item.href}
-//                 className={`group relative transition-colors duration-200 ${
-//                   isActive ? "text-indigo-600" : "text-gray-600"
-//                 } hover:text-indigo-600`}
-//               >
-//                 <span className="inline-block">{item.label}</span>
-//                 <span
-//                   className={`pointer-events-none absolute left-0 -bottom-1 h-0.5 bg-indigo-500 transition-all duration-200 ${
-//                     isActive ? "w-full" : "w-0 group-hover:w-full"
-//                   }`}
-//                 />
-//               </Link>
-//             );
-//           })}
-//         </nav>
-
-//         <button
-//           type="button"
-//           className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-indigo-600 hover:bg-indigo-50 transition-all duration-200"
-//           onClick={() => setMobileOpen((open) => !open)}
-//           aria-label="Toggle navigation"
-//         >
-//           <span
-//             className={`block h-0.5 w-5 bg-current transform transition duration-200 ${
-//               mobileOpen ? "translate-y-1.5 rotate-45" : "-translate-y-0.5"
-//             }`}
-//           />
-//           <span
-//             className={`block h-0.5 w-4 bg-current my-0.5 transition-opacity duration-200 ${
-//               mobileOpen ? "opacity-0" : "opacity-100"
-//             }`}
-//           />
-//           <span
-//             className={`block h-0.5 w-5 bg-current transform transition duration-200 ${
-//               mobileOpen ? "-translate-y-1.5 -rotate-45" : "translate-y-0.5"
-//             }`}
-//           />
-//         </button>
-//       </div>
-
-//       {mobileOpen && (
-//         <div className="md:hidden border-t border-gray-100 bg-white/90 backdrop-blur">
-//           <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col space-y-3 text-sm font-medium">
-//             {navItems.map((item) => {
-//               const isActive =
-//                 item.href === "/"
-//                   ? pathname === "/"
-//                   : pathname.startsWith(item.href);
-
-//               return (
-//                 <Link
-//                   key={item.href}
-//                   href={item.href}
-//                   onClick={() => setMobileOpen(false)}
-//                   className={`transition-colors duration-200 ${
-//                     isActive ? "text-indigo-600" : "text-gray-700"
-//                   } hover:text-indigo-600`}
-//                 >
-//                   {item.label}
-//                 </Link>
-//               );
-//             })}
-//           </nav>
+//     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+//       <div className="max-w-screen-2xl mx-auto flex items-center h-20 px-6 sm:px-10">
+        
+//         {/* Left Section: Brand Logo/Name */}
+//         <div className="flex-shrink-0 mr-12">
+//           <Link href="/" className="text-3xl font-extrabold text-gray-950 tracking-tight">
+//             Eromeofficial
+//           </Link>
 //         </div>
-//       )}
+
+//         {/* Center/Right-aligned Section: Navigation, Social Icons, Search, Subscribe */}
+//         <div className="flex-1 flex items-center justify-end gap-10">
+          
+//           {/* Main Navigation Links */}
+//           <nav className="flex items-center gap-6">
+//             <button 
+//               onClick={() => setActivePage('Home')} 
+//               className={getNavLinkClass('Home')}
+//             >
+//               Home
+//             </button>
+//             <button 
+//               onClick={() => setActivePage('Login Page')} 
+//               className={getNavLinkClass('Login Page')}
+//             >
+//               Login Page
+//             </button>
+//           </nav>
+
+//           {/* Social Media Icons and Theme Toggle */}
+//           <div className="flex items-center gap-5 border-l border-r border-gray-100 px-6">
+//             <FaFacebookF className={iconClass} title="Facebook" />
+//             <div className={`${iconClass} font-mono`} title="X (Twitter)">X</div> {/* Use a specific "X" icon or text here */}
+//             <FaTelegramPlane className={iconClass} title="Telegram" />
+//             <FaInstagram className={iconClass} title="Instagram" />
+//             <FaYoutube className={iconClass} title="YouTube" />
+            
+//             {/* Dark Mode / Night Mode Toggle Icon */}
+//             <FiMoon 
+//               className="text-xl text-gray-700 hover:text-gray-950 transition-colors cursor-pointer p-1" 
+//               title="Dark Mode" 
+//               onClick={() => alert("Dark Mode Toggle Clicked! (Logic to be implemented)")} // Simple feedback for interaction
+//             />
+//           </div>
+
+//           {/* Search and Subscribe CTAs */}
+//           <div className="flex items-center gap-4">
+//             {/* Search Icon button */}
+//             <button 
+//               className="p-3 text-white bg-pink-600 rounded-full hover:bg-pink-700 transition" 
+//               title="Search"
+//             >
+//               <FiSearch className="text-xl" />
+//             </button>
+            
+//             {/* Main Subscribe Button */}
+//             <button className="flex items-center gap-2.5 px-6 py-3.5 bg-pink-600 text-white text-base font-semibold rounded-xl hover:bg-pink-700 transition">
+//               <FiBell className="text-xl" />
+//               Subscribe
+//             </button>
+//           </div>
+//         </div>
+
+//       </div>
 //     </header>
 //   );
-// }
+// };
+
+// export default Header;
 
